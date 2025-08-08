@@ -1,9 +1,6 @@
-server:
-  port: ${PORT}
-
 spring:
   application:
-    name : statistics-service
+    name: statistics-service
 
   profiles:
     active: ${PROFILE}
@@ -21,4 +18,4 @@ stream:
   group:
     member-joined: ${MEMBER_JOINED_GROUP}
   consumer:
-    member-joined: ${MEMBER_JOINED_CONSUMER}
+    member-joined: ${MEMBER_JOINED_GROUP}-${CONTAINER_NAME}
