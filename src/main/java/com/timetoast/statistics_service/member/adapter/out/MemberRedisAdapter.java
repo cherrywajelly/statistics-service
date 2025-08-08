@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 
 import java.time.format.DateTimeFormatter;
 
+import static com.timetoast.statistics_service.global.constant.RedisKeyConstant.*;
+
 @Repository
 public class MemberRedisAdapter implements MemberStore {
 
@@ -18,10 +20,10 @@ public class MemberRedisAdapter implements MemberStore {
 
     @Override
     public void saveJoinedMemberStats(MemberJoinDto memberJoinDto) {
-        String monthKey = memberJoinDto.memberRole() +":month-signup:"
+        String monthKey = memberJoinDto.memberRole() + COLON.value() + MONTH_SIGNUP.value() + COLON.value()
                 + memberJoinDto.joinDate().format(DateTimeFormatter.ofPattern("yyyy-MM"));
 
-        String scoreKey = String.valueOf(memberJoinDto.joinDate().getDayOfMonth());
+        String scoreKey = DAY.value()+COLON+memberJoinDto.joinDate().getDayOfMonth();
 
         redisTemplate.opsForZSet().incrementScore(monthKey, scoreKey, 1);
     }
