@@ -35,7 +35,7 @@ public class MemberJoinStreamSubscriber implements StreamListener<String, MapRec
         try {
             objectMapper.registerModule(new JavaTimeModule());
             MemberJoinDto dto = objectMapper.readValue(payload, MemberJoinDto.class);
-            memberJoinUseCase.saveJoinedMemberStats(dto);
+            memberJoinUseCase.saveSignUpState(dto);
 
             redisTemplate.opsForStream().acknowledge(memberJoinedGroup, message);
         } catch (JsonProcessingException e) {
