@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.timetoast.statistics_service.member.domain.dto.MemberJoinDto;
-import com.timetoast.statistics_service.member.port.in.MemberJoinUseCase;
+import com.timetoast.statistics_service.member.application.port.in.MemberJoinUseCase;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.connection.stream.*;

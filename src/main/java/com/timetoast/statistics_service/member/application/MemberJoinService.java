@@ -3,13 +3,11 @@ package com.timetoast.statistics_service.member.application;
 import com.timetoast.statistics_service.global.dto.LoginMember;
 import com.timetoast.statistics_service.member.domain.dto.SignUpInfo;
 import com.timetoast.statistics_service.member.domain.model.MemberRole;
-import com.timetoast.statistics_service.member.port.in.MemberJoinUseCase;
-import com.timetoast.statistics_service.member.port.out.MemberStore;
+import com.timetoast.statistics_service.member.application.port.in.MemberJoinUseCase;
+import com.timetoast.statistics_service.member.application.port.out.MemberStore;
 import com.timetoast.statistics_service.member.domain.dto.MemberJoinDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 @Slf4j

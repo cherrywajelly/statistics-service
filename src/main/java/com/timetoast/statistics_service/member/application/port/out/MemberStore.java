@@ -1,4 +1,4 @@
-package com.timetoast.statistics_service.member.port.out;
+package com.timetoast.statistics_service.member.application.port.out;
 
 import com.timetoast.statistics_service.member.domain.dto.MemberJoinDto;
 import com.timetoast.statistics_service.member.domain.model.MemberRole;

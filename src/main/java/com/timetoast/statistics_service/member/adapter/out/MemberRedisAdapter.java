@@ -2,7 +2,7 @@ package com.timetoast.statistics_service.member.adapter.out;
 
 import com.timetoast.statistics_service.member.domain.dto.MemberJoinDto;
 import com.timetoast.statistics_service.member.domain.model.MemberRole;
-import com.timetoast.statistics_service.member.port.out.MemberStore;
+import com.timetoast.statistics_service.member.application.port.out.MemberStore;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 
