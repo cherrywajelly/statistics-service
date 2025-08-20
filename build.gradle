@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.5.4'
 	id 'io.spring.dependency-management' version '1.1.7'
+	id 'jacoco'
 }
 
 group = 'com.timetoast'
@@ -22,6 +23,70 @@ configurations {
 repositories {
 	mavenCentral()
 }
+
+jacoco {
+	toolVersion = "0.8.12"
+	reportsDirectory = layout.buildDirectory.dir("reports/jacoco")
+}
+
+jacocoTestReport {
+	dependsOn test
+
+	reports {
+		xml.required = false
+		csv.required = false
+		html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+	}
+	def QDomainList = []
+	for (qPattern in '**/QA'..'**/QZ') { // QClass 대응
+		QDomainList.add(qPattern + '*')
+	}
+
+	afterEvaluate {
+		classDirectories.setFrom(files(classDirectories.files.collect {
+			fileTree(dir: it, exclude: [
+					'**/domain/**',
+					'**/adapter/**',
+					'**/auth/**',
+					'**/global/**',
+					'com/timeToast/statistics_service/StatisticsServiceApplication.class'
+			] + QDomainList)
+		}))
+	}
+
+	finalizedBy 'jacocoTestCoverageVerification'
+}
+
+jacocoTestCoverageVerification {
+	def QDomainList = []
+	for (qPattern in '*.QA'..'*.QZ') { // QClass 대응
+		QDomainList.add(qPattern + '*')
+	}
+
+
+	violationRules{
+		rule {
+			enabled = true
+			element = 'CLASS'
+
+			limit {
+				counter = 'METHOD'
+				value = 'COVEREDRATIO'
+				minimum = 0.6
+			}
+
+			excludes =  [
+					'*.domain.*',
+					'*.adapter.*',
+					'*.global.*',
+					'*.auth.*',
+					'*.StatisticsServiceApplication'
+			] + QDomainList
+		}
+
+	}
+}
+
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
@@ -47,4 +112,14 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+	finalizedBy jacocoTestReport
+
+	jacoco {
+		excludes += ['*.domain.*',
+					 '*.adapter.*',
+					 '*.global.*',
+					 '*.auth.*',
+					 '*.StatisticsServiceApplication']
+	}
+
 }
