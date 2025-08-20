@@ -1,6 +1,5 @@
 package com.timetoast.statistics_service.member.application;
 
-import com.timetoast.statistics_service.global.dto.LoginMember;
 import com.timetoast.statistics_service.member.domain.dto.SignUpInfo;
 import com.timetoast.statistics_service.member.domain.model.MemberRole;
 import com.timetoast.statistics_service.member.application.port.in.MemberJoinUseCase;
@@ -27,7 +26,7 @@ public class MemberJoinService implements MemberJoinUseCase {
     }
 
     @Override
-    public SignUpInfo getSignUpInfo(LoginMember loginMember) {
+    public SignUpInfo getSignUpInfo() {
 
         log.info("success get total signUpInfo");
 

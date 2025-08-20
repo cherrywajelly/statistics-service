@@ -19,7 +19,7 @@ public class AdminMemberController {
     }
 
     @GetMapping("/signupInfo")
-    public SignUpInfo getSignUpInfo(@Login LoginMember loginMember) {
-        return memberJoinUseCase.getSignUpInfo(loginMember);
+    public SignUpInfo getSignUpInfo() {
+        return memberJoinUseCase.getSignUpInfo();
     }
 }

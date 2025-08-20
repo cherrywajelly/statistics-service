@@ -6,5 +6,5 @@ import com.timetoast.statistics_service.member.domain.dto.SignUpInfo;
 
 public interface MemberJoinUseCase {
     void saveSignUpState(MemberJoinDto dto);
-    SignUpInfo getSignUpInfo(LoginMember loginMember);
+    SignUpInfo getSignUpInfo();
 }
