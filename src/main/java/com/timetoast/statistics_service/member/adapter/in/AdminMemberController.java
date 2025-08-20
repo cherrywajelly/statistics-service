@@ -1,7 +1,5 @@
 package com.timetoast.statistics_service.member.adapter.in;
 
-import com.timetoast.statistics_service.global.annotation.Login;
-import com.timetoast.statistics_service.global.dto.LoginMember;
 import com.timetoast.statistics_service.member.domain.dto.SignUpInfo;
 import com.timetoast.statistics_service.member.application.port.in.MemberJoinUseCase;
 import org.springframework.web.bind.annotation.GetMapping;
