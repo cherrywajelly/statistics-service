@@ -1,6 +1,6 @@
 spring:
   application:
-    name : statistics-service
+    name: statistics-service
 
   profiles:
     active: ${PROFILE}
@@ -11,13 +11,14 @@ spring:
       port: ${REDIS_PORT}
       password: ${REDIS_PASSWORD}
 
+
 stream:
   key:
     member-joined: ${MEMBER_JOINED_KEY}
   group:
     member-joined: ${MEMBER_JOINED_GROUP}
   consumer:
-    member-joined: ${MEMBER_JOINED_CONSUMER}
+    member-joined: ${MEMBER_JOINED_GROUP}-${CONTAINER_NAME}
 
 security:
   cors:
