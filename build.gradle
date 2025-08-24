@@ -45,8 +45,9 @@ jacocoTestReport {
 	afterEvaluate {
 		classDirectories.setFrom(files(classDirectories.files.collect {
 			fileTree(dir: it, exclude: [
-					'**/domain/**',
-					'**/adapter/**',
+					'**/dto/**',
+					'**/enums/**',
+					'**/port/**',
 					'**/auth/**',
 					'**/global/**',
 					'com/timeToast/statistics_service/StatisticsServiceApplication.class'
@@ -76,8 +77,9 @@ jacocoTestCoverageVerification {
 			}
 
 			excludes =  [
-					'*.domain.*',
-					'*.adapter.*',
+					'*.dto.*',
+					'*.enums.*',
+					'*.port.*',
 					'*.global.*',
 					'*.auth.*',
 					'*.StatisticsServiceApplication'
@@ -108,6 +110,13 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 	implementation 'org.springframework.session:spring-session-data-redis'
 	implementation 'org.springframework.boot:spring-boot-starter-cache'
+
+	//testcontainers
+	testImplementation "org.testcontainers:testcontainers:1.20.3"
+	testImplementation "org.testcontainers:junit-jupiter:1.20.3"
+
+	//testcontainers + redis
+	testImplementation 'com.redis:testcontainers-redis:2.2.2'
 }
 
 tasks.named('test') {
@@ -115,8 +124,9 @@ tasks.named('test') {
 	finalizedBy jacocoTestReport
 
 	jacoco {
-		excludes += ['*.domain.*',
-					 '*.adapter.*',
+		excludes += ['*.dto.*',
+					 '*.enums.*',
+					 '*.port.*',
 					 '*.global.*',
 					 '*.auth.*',
 					 '*.StatisticsServiceApplication']
