@@ -16,7 +16,7 @@ import java.time.YearMonth;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-public class MemberRedisAdapterTestSupport extends TestSupport {
+public class MemberRedisAdapterTest extends TestSupport {
 
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
