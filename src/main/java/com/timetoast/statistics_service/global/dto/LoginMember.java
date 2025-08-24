@@ -1,7 +1,7 @@
 package com.timetoast.statistics_service.global.dto;
 
 
-import com.timetoast.statistics_service.member.domain.model.MemberRole;
+import com.timetoast.statistics_service.member.domain.enums.MemberRole;
 import lombok.Builder;
 
 @Builder

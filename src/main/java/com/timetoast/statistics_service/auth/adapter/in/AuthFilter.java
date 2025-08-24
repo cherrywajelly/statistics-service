@@ -2,7 +2,7 @@ package com.timetoast.statistics_service.auth.adapter.in;
 
 import com.timetoast.statistics_service.global.dto.LoginMember;
 import com.timetoast.statistics_service.global.exception.UnauthorizedException;
-import com.timetoast.statistics_service.member.domain.model.MemberRole;
+import com.timetoast.statistics_service.member.domain.enums.MemberRole;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
