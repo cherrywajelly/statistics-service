@@ -1,8 +1,8 @@
 package com.timetoast.statistics_service.member.application;
 
-import com.timetoast.statistics_service.member.application.port.out.MemberStore;
+import com.timetoast.statistics_service.member.application.port.out.MemberJoinPort;
 import com.timetoast.statistics_service.member.domain.dto.MemberJoinDto;
-import com.timetoast.statistics_service.member.domain.model.MemberRole;
+import com.timetoast.statistics_service.member.domain.enums.MemberRole;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -17,7 +17,7 @@ import static org.mockito.Mockito.verify;
 class MemberJoinServiceTest {
 
     @Mock
-    private MemberStore memberStore;
+    private MemberJoinPort memberJoinPort;
 
     @InjectMocks
     private MemberJoinService memberJoinService;
@@ -32,8 +32,8 @@ class MemberJoinServiceTest {
         memberJoinService.saveSignUpState(memberJoinDto);
 
         //then
-        verify(memberStore).updateTotalSignUpState(memberJoinDto);
-        verify(memberStore).updateMonthlySignUpState(memberJoinDto);
+        verify(memberJoinPort).updateTotalSignUpState(memberJoinDto);
+        verify(memberJoinPort).updateMonthlySignUpState(memberJoinDto);
     }
 
     @Test
@@ -44,7 +44,7 @@ class MemberJoinServiceTest {
         memberJoinService.getSignUpInfo();
 
         //then
-        verify(memberStore).getTotalSignUpState(MemberRole.USER);
-        verify(memberStore).getTotalSignUpState(MemberRole.CREATOR);
+        verify(memberJoinPort).getTotalSignUpState(MemberRole.USER);
+        verify(memberJoinPort).getTotalSignUpState(MemberRole.CREATOR);
     }
 }
