@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/statistics/api/v3/members")
+@RequestMapping("/api/statistics/v3/members")
 public class AdminMemberController {
 
     private final MemberJoinUseCase memberJoinUseCase;
