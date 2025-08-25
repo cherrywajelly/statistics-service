@@ -30,7 +30,7 @@ public class AdminMemberControllerTest extends TestSupport {
     @DisplayName("/signupInfo 조회 API")
     public void getSignUpInfo(){
         try{
-            MvcResult result = mockMvc.perform(get("/statistics/api/v3/members/signupInfo")
+            MvcResult result = mockMvc.perform(get("/api/statistics/v3/members/signupInfo")
                             .header("X-User-Id", 1L)
                             .header("X-User-Role", "STAFF"))
                     .andExpect(status().isOk())
