@@ -1,7 +1,7 @@
 package com.timetoast.statistics_service.member.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.timetoast.statistics_service.member.domain.model.MemberRole;
+import com.timetoast.statistics_service.member.domain.enums.MemberRole;
 
 import java.time.LocalDate;
 

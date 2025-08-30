@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.5.4'
 	id 'io.spring.dependency-management' version '1.1.7'
+	id 'jacoco'
 }
 
 group = 'com.timetoast'
@@ -22,6 +23,72 @@ repositories {
 	mavenCentral()
 }
 
+jacoco {
+	toolVersion = "0.8.12"
+	reportsDirectory = layout.buildDirectory.dir("reports/jacoco")
+}
+
+jacocoTestReport {
+	dependsOn test
+
+	reports {
+		xml.required = false
+		csv.required = false
+		html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+	}
+	def QDomainList = []
+	for (qPattern in '**/QA'..'**/QZ') { // QClass 대응
+		QDomainList.add(qPattern + '*')
+	}
+
+	afterEvaluate {
+		classDirectories.setFrom(files(classDirectories.files.collect {
+			fileTree(dir: it, exclude: [
+					'**/dto/**',
+					'**/enums/**',
+					'**/port/**',
+					'**/auth/**',
+					'**/global/**',
+					'com/timeToast/statistics_service/StatisticsServiceApplication.class'
+			] + QDomainList)
+		}))
+	}
+
+	finalizedBy 'jacocoTestCoverageVerification'
+}
+
+jacocoTestCoverageVerification {
+	def QDomainList = []
+	for (qPattern in '*.QA'..'*.QZ') { // QClass 대응
+		QDomainList.add(qPattern + '*')
+	}
+
+
+	violationRules{
+		rule {
+			enabled = true
+			element = 'CLASS'
+
+			limit {
+				counter = 'METHOD'
+				value = 'COVEREDRATIO'
+				minimum = 0.6
+			}
+
+			excludes =  [
+					'*.dto.*',
+					'*.enums.*',
+					'*.port.*',
+					'*.global.*',
+					'*.auth.*',
+					'*.StatisticsServiceApplication'
+			] + QDomainList
+		}
+
+	}
+}
+
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -30,13 +97,38 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
+	//security
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+
+	//jwt
+	implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
+	implementation 'io.jsonwebtoken:jjwt-impl:0.11.2'
+	implementation 'io.jsonwebtoken:jjwt-jackson:0.11.2'
 
 	//redis
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 	implementation 'org.springframework.session:spring-session-data-redis'
 	implementation 'org.springframework.boot:spring-boot-starter-cache'
+
+	//testcontainers
+	testImplementation "org.testcontainers:testcontainers:1.20.3"
+	testImplementation "org.testcontainers:junit-jupiter:1.20.3"
+
+	//testcontainers + redis
+	testImplementation 'com.redis:testcontainers-redis:2.2.2'
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
+	finalizedBy jacocoTestReport
+
+	jacoco {
+		excludes += ['*.dto.*',
+					 '*.enums.*',
+					 '*.port.*',
+					 '*.global.*',
+					 '*.auth.*',
+					 '*.StatisticsServiceApplication']
+	}
+
 }

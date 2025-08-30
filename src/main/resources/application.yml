@@ -19,3 +19,10 @@ stream:
     member-joined: ${MEMBER_JOINED_GROUP}
   consumer:
     member-joined: ${MEMBER_JOINED_GROUP}-${CONTAINER_NAME}
+
+security:
+  cors:
+    paths:
+      - ${APP_FRONT}
+      - ${CREATOR_FRONT}
+      - ${ADMIN_FRONT}
