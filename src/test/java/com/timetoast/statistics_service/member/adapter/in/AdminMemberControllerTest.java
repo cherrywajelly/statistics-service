@@ -28,22 +28,18 @@ public class AdminMemberControllerTest extends TestSupport {
 
     @Test
     @DisplayName("/signupInfo 조회 API")
-    public void getSignUpInfo(){
-        try{
-            MvcResult result = mockMvc.perform(get("/api/statistics/v3/members/signupInfo")
-                            .header("X-User-Id", 1L)
-                            .header("X-User-Role", "STAFF"))
-                    .andExpect(status().isOk())
-                    .andReturn();
+    public void getSignUpInfo() throws Exception {
+        MvcResult result = mockMvc.perform(get("/api/statistics/v3/members/signupInfo")
+                        .header("X-User-Id", 1L)
+                        .header("X-User-Role", "STAFF"))
+                .andExpect(status().isOk())
+                .andReturn();
 
-            String json = result.getResponse().getContentAsString();
-            SignUpInfo actual = objectMapper.readValue(json, SignUpInfo.class);
+        String json = result.getResponse().getContentAsString();
+        SignUpInfo actual = objectMapper.readValue(json, SignUpInfo.class);
 
-            assertThat(actual.totalUserCount()).isGreaterThanOrEqualTo(0L);
-            assertThat(actual.totalCreatorCount()).isGreaterThanOrEqualTo(0L);
-        }catch (Exception ignored){
-
-        }
+        assertThat(actual.totalUserCount()).isGreaterThanOrEqualTo(0L);
+        assertThat(actual.totalCreatorCount()).isGreaterThanOrEqualTo(0L);
 
     }
 
